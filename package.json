@@ -1,0 +1,71 @@
+{
+    "name": "translate-vscode",
+    "displayName": "translate-vscode",
+    "description": "Translate inline translation keys from a remote json file",
+    "version": "0.0.1",
+    "publisher": "thomas-caserta",
+    "engines": {
+        "vscode": "^1.14.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onLanguage:javascript",
+        "onLanguage:json",
+        "onLanguage:typescript",
+        "onLanguage:pug",
+        "onLanguage:jade",
+        "onLanguage:markdown"
+    ],
+    "main": "./out/src/extension",
+    "contributes": {
+        "configuration": {
+            "type": "object",
+            "title": "Translator Configuration",
+            "properties": {
+                "translator.suppressNonExistant": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Whether to supress translations that do not exist"
+                },
+                "translator.locations": {
+                    "type": "object",
+                    "description": "Locations of the translations files, use %LANG% in the url to substitute languages",
+                    "properties": {
+                        "translator.locations.production": {
+                            "type": ["string", "null"],
+                            "description": "Where the production configuration is located"
+                        },
+                        "translator.locations.staging": {
+                            "type": ["string", "null"],
+                            "description": "Where the staging configuration is located"
+                        }
+                    },
+                    "default": { "production": "", "staging": "" }
+                },
+                "translator.languages": {
+                    "type": "array",
+                    "default": ["en", "gb", "sv", "no", "fi", "de", "tr"],
+                    "description": "Languages available to select from"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "tsc -p ./",
+        "compile": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.0.3",
+        "vscode": "^1.0.0",
+        "mocha": "^2.3.3",
+        "@types/node": "^6.0.40",
+        "@types/mocha": "^2.2.32"
+    },
+    "dependencies": {
+        "request-promise-native": "^1.0.4"
+    }
+}
